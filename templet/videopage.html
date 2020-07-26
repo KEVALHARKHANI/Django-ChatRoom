@@ -1,0 +1,55 @@
+{% extends 'Home_main.html'%}
+{%load static%}
+
+{%block videocall %}
+<style>
+body{
+background-image: url("{% static 'home/img/constructive_bg_01.jpg'%}");
+}
+</style>
+
+<script>
+    function onVidyoClientLoaded(status) {
+
+    switch (status.state) {
+      case "READY":
+
+
+      console.log("ready to go")
+      VC.CreateVidyoConnector({
+              viewId: "vc",                            // Div ID where the composited video will be rendered, see VidyoConnector.html
+              viewStyle: "VIDYO_CONNECTORVIEWSTYLE_Default", // Visual style of the composited renderer
+              remoteParticipants: 15,                        // Maximum number of participants
+              logFileFilter: "error",
+              logFileName:"",
+              userData:""
+}).then(function(vc) {
+console.log("create successfully")
+
+    }).then(function(error) {
+
+});
+
+
+
+        break;
+      case "RETRYING":     // The library operating is temporarily paused
+      console.log('retrying')
+        break;
+      case "FAILED":       // The library operating has stopped
+      console.log('Failed')
+        break;
+      case "FAILEDVERSION":// The version of the Javascript library does not match the plugin
+        status.plugInVersion; // The Version of the plugin currently installed
+        status.jsVersion;     // The Version of the Javascript library loaded
+        break;
+      case "NOTAVAILABLE": // The library is not available
+      console.log('Not available')
+        break;
+    }
+    }
+
+</script>
+<script src="https://static.vidyo.io/latest/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded"></script>
+<center><div id="vc"></div></center>
+{%endblock%}

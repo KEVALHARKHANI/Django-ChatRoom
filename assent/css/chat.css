@@ -1,0 +1,154 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+
+.container {
+    width: auto;
+    padding: 10px;
+}
+
+.box{
+  box-sizing: border-box;
+  width: 75%;
+  padding-top:200px;
+  border: 2px solid black;
+  overflow-y:auto;
+  object-fit: cover;
+}
+
+
+.message-blue {
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #A8DDFD;
+    min-width: 200px;
+    width:30%;
+    min-height:50px;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #97C6E3;
+    border-radius: 10px;
+}
+
+.message-orange {
+    position: relative;
+    margin-bottom: 10px;
+    margin-left: calc(100% - 340px);
+    padding: 10px;
+    background-color: #f8e896;
+    min-width: 200px;
+    width:300px;
+    min-height:50px;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #dfd087;
+    border-radius: 10px;
+}
+
+.message-content {
+    padding: 0;
+    margin: 0;
+    word-break: break-all;
+    min-width:200px
+    width: 200px;
+}
+
+.message-timestamp-right {
+    position: absolute;
+    font-size: .85em;
+    font-weight: 300;
+    bottom: 5px;
+    right: 5px;
+}
+
+.message-timestamp-left {
+    position: absolute;
+    font-size: .85em;
+    font-weight: 300;
+    bottom: 5px;
+    left: 5px;
+}
+
+.message-blue:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #A8DDFD;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    top: 0;
+    left: -15px;
+}
+
+.message-blue:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 17px solid #97C6E3;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    top: -1px;
+    left: -17px;
+}
+
+.message-orange:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid #f8e896;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    bottom: 0;
+    right: -15px;
+}
+
+.message-orange:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 17px solid #dfd087;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    bottom: -1px;
+    right: -17px;
+}
+div.fixed {
+
+  position: fixed;
+  bottom: 0;
+  width:70%;
+
+}
+#wrapper {
+width:100%;
+margin : 0;
+}
+
+#first-div {
+width:70%;
+margin : 0;
+float : left ;
+border-radius: 25px;
+
+  padding: 20px;
+  height: 650px;
+  border: 1px solid #97C6E3;
+  overflow: auto;
+}
+
+#second-div {
+height: 700px;
+width:25%;
+border:1px solid black;
+padding:20px
+margin : 0px;
+float : left ;
+border-radius:25px;
+
+}

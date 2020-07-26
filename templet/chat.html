@@ -1,0 +1,202 @@
+{%load static%}
+{%load calculate%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatroom</title>
+    <link rel="stylesheet" href="{% static 'css/chat.css'%}">
+</head>
+<body>
+<style>
+body{
+background-image: url("{% static 'home/img/constructive_bg_01.jpg'%}");
+}
+input[type=text] {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid red;
+  border-radius: 4px;
+}
+input[type=submit]{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+{%for a in user%}
+{%if request.user|check == a.name|check%}
+    <script>
+    alert('user already connected or due to refresh')
+        window.location.href="/"
+    </script>
+
+
+{%endif%}
+{%endfor%}
+
+<div id="header" style="width=:100%"><center>SEM-{{number}}</center></div>
+<div id="wrapper">
+<div id="first-div" >
+
+    <div class="container" id="display">
+        {%for i in chat%}
+        {%if request.user|check == i.user.username|check %}
+            <div class="message-orange">
+            <p class="message-content">{{i.message}}</p>
+            <div class="message-timestamp-left">{{i.datetime}}</div>
+        </div>
+
+        {%else%}
+        <div class="message-blue">
+            <p class="message-content"><b>{{i.user.username}}</b><br>{{i.message}}</p>
+            <div class="message-timestamp-left">{{i.datetime}}</div>
+        </div>
+    {%endif%}
+        {%endfor%}
+    </div>
+
+
+    <div class="fixed">
+    <form id='form1' method="get">
+    <input type="text" id="msg">
+    <input type="submit">
+            </form>
+    </div>
+
+    {%if request.user.is_authenticated%}
+
+
+    <script>
+        console.log(window.location)
+        var video2= document.getElementById('video2')
+        var msg=document.getElementById('msg')
+        var display=document.getElementById('display')
+        var formdata=document.getElementById('form1')
+        var wsStart = 'ws://'
+        var endpoint=wsStart+window.location.host + window.location.pathname
+        var socket= new WebSocket(endpoint)
+
+
+
+
+        socket.onmessage = function(e){
+            console.log("message",e)
+            var r_data=JSON.parse(e.data)
+            if(r_data.user){
+            if(r_data.disconnected){
+                var user=document.getElementById(r_data.user)
+                user.remove();
+            }else{
+            var user_exist=document.getElementById(r_data.user)
+            if(!user_exist){
+            console.log("active user "+r_data.user)
+            var user=document.getElementById('user')
+            var li = document.createElement("LI");
+            user.appendChild(li);
+            li.id=r_data.user;
+            li.innerHTML=r_data.user;
+            }
+}
+
+            }
+            else{
+            if(r_data.username=="{{request.user}}"){
+            var div = document.createElement("DIV");
+             display.appendChild(div);
+             div.classList.add("message-orange");
+             var p=document.createElement("P");
+             div.appendChild(p);
+             p.classList.add("message-content");
+             var r_data=JSON.parse(e.data)
+             p.innerHTML=r_data.message
+             var div_time=document.createElement("DIV");
+             p.appendChild(div_time);
+             div_time.classList.add("message-timestamp-left");
+             div_time.innerHTML=r_data.datetime
+
+
+
+
+            }else{
+             var div = document.createElement("DIV");
+             display.appendChild(div);
+             div.classList.add("message-blue");
+             var p=document.createElement("P");
+             div.appendChild(p);
+               p.classList.add("message-content");
+             p.innerHTML="<b>"+r_data.username+"</b><br>"+r_data.message
+             var div_time=document.createElement("DIV");
+             p.appendChild(div_time);
+             div_time.classList.add("message-timestamp-left");
+             div_time.innerHTML=r_data.datetime
+             }
+            var myDiv = document.getElementById("first-div");
+            myDiv.scrollTop = myDiv.scrollHeight;
+
+            }
+        }
+        socket.onopen =  function(e){
+            console.log("open",e)
+            formdata.onsubmit=function(event){
+            event.preventDefault()
+            socket.send(msg.value)
+            msg.value="";
+            }
+
+        }
+        socket.onerror =  function(e){
+            console.log("error:",e)
+        }
+        socket.onclose =  function(e){
+            console.log("closed ",e)
+        }
+
+        function vc(){
+        var video= document.getElementById('video')
+
+        if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+          console.log(stream)
+        socket.send(stream)
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
+        }
+    </script>
+
+
+    {%else%}
+    <script>
+        alert('please login first:')
+    </script>
+    {%endif%}
+</div>
+
+    <div id="second-div" >
+        <div style="border-bottom: 5px solid black;">
+            <center><h3>Active User</h3></center>
+        </div>
+        <div>
+            <ul id="user">
+                {%for u in user%}
+                <li id="{{u.name}}">{{u.name}}</li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

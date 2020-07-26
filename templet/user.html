@@ -1,0 +1,321 @@
+{%load static%}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+
+	<style>
+	img{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+		tr{
+		height:50%;
+
+		}
+		td{
+
+		height:50%;
+
+		}
+		table{
+		width:100%;
+
+
+		}
+		.border{
+		border:1px solid black;
+		}
+	</style>
+	<title>{{request.user.username}}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	
+	
+	<!-- Font -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700%7CAllura" rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	
+	<link href="{%static 'user/common-css/bootstrap.css'%}" rel="stylesheet">
+	
+	<link href="{%static 'user/common-css/ionicons.css'%}" rel="stylesheet">
+	
+	<link href="{%static 'user/common-css/fluidbox.min.css'%}" rel="stylesheet">
+	
+	<link href="{%static 'user/01-cv-portfolio/css/styles.css'%}" rel="stylesheet">
+	
+	<link href="{%static 'user/01-cv-portfolio/css/responsive.css'%}" rel="stylesheet">
+	
+</head>
+<body>
+	
+
+	
+	<section class="intro-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1 col-lg-2"></div>
+				<div class="col-md-10 col-lg-8">
+					<div class="intro">
+						<a href="/Media/{{url.photo}}" data-fluidbox>
+						<div class="profile-img"><img src="/Media/{{url.photo}}" alt=""></div></a>
+						<br>
+						<a href="">Edit</a>
+						<h2><b>{{request.user.first_name}}  {{request.user.last_name}}</b></h2>
+						<h4 class="font-yellow">@{{request.user.username}}</h4>
+						<ul class="information margin-tb-30">
+							<li><b>BORN : </b>August 25, 1987</li>
+							<li><b>EMAIL : </b>{{request.user.email}}</li>
+						</ul>
+						<ul class="social-icons">
+							<li><a href="#"><i class="ion-social-pinterest"></i></a></li>
+							<li><a href="#"><i class="ion-social-linkedin"></i></a></li>
+							<li><a href="#"><i class="ion-social-instagram"></i></a></li>
+							<li><a href="#"><i class="ion-social-facebook"></i></a></li>
+							<li><a href="#"><i class="ion-social-twitter"></i></a></li>
+						</ul>
+					</div><!-- intro -->
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- intro-section -->
+	
+	<section class="portfolio-section section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="heading">
+						<h3><b>Portfolio</b></h3>
+						<h6 class="font-lite-black"><b>MY WORK</b></h6>
+					</div>
+				</div><!-- col-sm-4 -->
+				<div class="col-sm-8">
+					<div class="portfolioFilter clearfix margin-b-80">
+						<a href="#" data-filter="*" class="current"><b>ALL</b></a>
+						<a href="#" data-filter=".web-design"><b>WEB DESIGN</b></a>
+						<a href="#" data-filter=".branding"><b>BRANDING</b></a>
+						<a href="#" data-filter=".graphic-design"><b>GRAPHIC DESIGN</b></a>
+					</div><!-- portfolioFilter -->
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+		
+		<div class="portfolioContainer">
+<table height="100%">
+	<tr>
+		<td colspan="2" style="width:33%" >
+			<div  id="1" style="height:300px;overflow:hidden;padding:10px">
+				{%if photos.img1%}
+				<a href="/Media/{{photos.img1}}" data-fluidbox>
+					<img src="/Media/{{photos.img1}}">
+				</a>
+				{%else%}
+			<span>add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file1" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div>
+		</td>
+		<td rowspan="2" style="width:33%" >
+			<div id="2" style="height:100%;overflow:hidden;padding:10px">
+				{%if photos.img2%}
+				<a href="/Media/{{photos.img2}}" data-fluidbox>
+				<img src="/Media/{{photos.img2}}">
+				</a>
+				{%else%}
+				<span >add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file2" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div>
+		</td>
+		<td width="33%">
+			<div  id="3" style="height:300px;overflow:hidden;padding:10px">
+				{%if photos.img3%}
+				<a href="/Media/{{photos.img3}}" data-fluidbox>
+				<img src="/Media/{{photos.img3}}">
+				</a>
+				{%else%}
+			<span>add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file3" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div>
+		</td>
+
+	</tr>
+	<tr>
+		<td height="50%" width="16.5%">
+			<div  id="4" style="height:300px;overflow:hidden;padding:10px">
+				{%if photos.img4%}
+				<a href="/Media/{{photos.img4}}" data-fluidbox>
+				<img src="/Media/{{photos.img4}}">
+				</a>
+				{%else%}
+			<span style="font-size:10px">add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file4" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div>
+		</td>
+		<td height="50%" width="16.5%">
+			<div id="5" style="height:300px;overflow:hidden;padding:10px">
+				{%if photos.img5%}
+				<a href="/Media/{{photos.img5}}" data-fluidbox>
+				<img src="/Media/{{photos.img5}}">
+				</a>
+				{%else%}
+			<span style="font-size:10px">add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file5" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div></td>
+		<td width="33%">
+			<div id="6" style="height:300px;overflow:hidden;padding:10px">
+				{%if photos.img6%}
+				<a href="/Media/{{photos.img6}}" data-fluidbox>
+				<img src="/Media/{{photos.img6}}">
+				</a>
+				{%else%}
+			<span>add photo
+			<form action="upload" method="post" enctype = "multipart/form-data">
+				{%csrf_token%}
+				<input type="file" name="file6" accept="image/jpeg" required><br>
+				<input type="submit" value="Upload">
+			</form>
+					</span>
+				{%endif%}
+				</div>
+		</td>
+
+	</tr>
+
+</table>
+
+		
+		</div><!-- portfolioContainer -->
+		
+	</section><!-- portfolio-section -->
+	
+	
+	<section class="about-section section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="heading">
+						<h3><b>About me</b></h3>
+						<h6 class="font-lite-black"><b>PROFESSIONAL PATH</b></h6>
+					</div>
+				</div><!-- col-sm-4 -->
+				<div class="col-sm-8">
+					<p class="margin-b-50">Duis non volutpat arcu, eu mollis tellus. Sed finibus aliquam neque 
+					sit amet sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+					Nulla maximus pellentes que velit, quis consequat nulla effi citur at. 
+					Maecenas sed massa tristique.Duis non volutpat arcu, eu mollis tellus. 
+					Sed finibus aliquam neque sit amet sodales. Lorem ipsum dolor sit amet, 
+					consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur 
+					adipiscing elit. Nulla maximus pellentes que velit, quis consequat nulla 
+					effi citur at.Maecenas sed massa tristique.</p>
+
+					</div><!-- row -->
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- about-section -->
+	
+
+
+	
+
+	
+	<footer>
+		<p class="copyright">
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		</p>
+
+
+	</footer>
+	
+	
+	<!-- SCIPTS -->
+	
+	<script src="{%static 'user/common-js/jquery-3.2.1.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/tether.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/bootstrap.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/isotope.pkgd.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/jquery.waypoints.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/progressbar.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/jquery.fluidbox.min.js'%}"></script>
+	
+	<script src="{%static 'user/common-js/scripts.js'%}"></script>
+
+<script>
+	var div1=document.getElementById('1');
+	var div2=document.getElementById('2');
+	var div3=document.getElementById('3');
+	var div4=document.getElementById('4');
+	var div5=document.getElementById('5');
+	var div6=document.getElementById('6');
+	{%if not photos.img1%}
+	div1.classList.add('border')
+	{%endif%}
+
+	{%if not photos.img2%}
+	div2.classList.add('border')
+	{%endif%}
+
+	{%if not photos.img3%}
+	div3.classList.add('border')
+	{%endif%}
+
+	{%if not photos.img4%}
+	div4.classList.add('border')
+	{%endif%}
+
+	{%if not photos.img5%}
+	div5.classList.add('border')
+	{%endif%}
+
+	{%if not photos.img6%}
+	div6.classList.add('border')
+	{%endif%}
+
+
+
+</script>
+
+	
+</body>
+</html>
